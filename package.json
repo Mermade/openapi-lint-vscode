@@ -1,46 +1,68 @@
 {
-    "name": "openapi-lint",
-    "displayName": "openapi-lint",
-    "description": "OpenAPI (Swagger) validator and linter",
-    "version": "0.0.1",
-    "publisher": "mermade",
-    "engines": {
-        "vscode": "^1.24.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "onCommand:extension.openapi-validate",
-        "onCommand:extension.openapi-lint"
-    ],
-    "main": "./extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.openapi-validate",
-                "title": "OpenAPI Validate"
-            },
-            {
-                "command": "extension.openapi-lint",
-                "title": "OpenAPI Lint"
-            }
-        ]
-    },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "eslint": "^4.11.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
-    },
-    "dependencies": {
-        "babel-runtime": "^6.26.0",
-        "js-yaml": "^3.12.0",
-        "oas-validator": "^1.1.3"
-    }
+  "name": "openapi-lint",
+  "displayName": "openapi-lint",
+  "description": "OpenAPI (Swagger) validator and linter",
+  "version": "0.0.1",
+  "publisher": "mermade",
+  "engines": {
+    "vscode": "^1.24.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.openapi-validate",
+    "onCommand:extension.openapi-lint"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.openapi-validate",
+        "title": "OpenAPI Validate"
+      },
+      {
+        "command": "extension.openapi-lint",
+        "title": "OpenAPI Lint"
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6",
+    "eslint": "^4.11.0",
+    "@types/node": "^7.0.43",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "js-yaml": "^3.12.0",
+    "oas-validator": "^1.1.3"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mermade/openapi-lint-vscode.git"
+  },
+  "keywords": [
+    "openapi",
+    "oas",
+    "swagger",
+    "lint",
+    "linter",
+    "validate",
+    "validator"
+  ],
+  "author": "Mike Ralphson",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/Mermade/openapi-lint-vscode/issues"
+  },
+  "homepage": "https://github.com/Mermade/openapi-lint-vscode#readme"
 }
