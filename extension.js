@@ -4,6 +4,38 @@ const vscode = require('vscode');
 const yaml = require('js-yaml');
 const validator = require('oas-validator');
 
+function convert(yamlMode) {
+    let editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        vscode.window.showInformationMessage('You must have an open editor window to convert an OpenAPI document');
+        return; // No open text editor
+    }
+
+    let text = editor.document.getText();
+    try {
+        let obj = yaml.safeLoad(text,{ json: true });
+        let out = '';
+        if (yamlMode) {
+            out = yaml.safeDump(obj);
+        }
+        else {
+           out = JSON.stringify(obj, null, 2);
+        }
+        editor.edit(builder => {
+			const document = editor.document;
+			const lastLine = document.lineAt(document.lineCount - 2);
+
+			const start = new vscode.Position(0, 0);
+			const end = new vscode.Position(document.lineCount - 1, lastLine.text.length);
+
+            builder.replace(new vscode.Range(start, end), out);
+        });
+    }
+    catch (ex) {
+        vscode.window.showErrorMessage('Could not parse OpenAPI document!\n'+ex.message);
+    }
+}
+
 function validate(lint) {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
@@ -13,9 +45,9 @@ function validate(lint) {
 
     let text = editor.document.getText();
     try {
-	let options = { lint: lint };
-    let obj = yaml.safeLoad(text,{ json: true });
-	let result = false;
+    	let options = { lint: lint };
+        let obj = yaml.safeLoad(text,{ json: true });
+	    let result = false;
         try {
             result = validator.validateSync(obj, options);
           	vscode.window.showInformationMessage('Your OpenAPI document is valid!');
@@ -54,8 +86,18 @@ function activate(context) {
     	validate(true);
     });
 
+    let cmdConvertToJson = vscode.commands.registerCommand('extension.openapi-to-json', function() {
+        convert(false);
+    });
+
+    let cmdConvertToYaml = vscode.commands.registerCommand('extension.openapi-to-yaml', function() {
+        convert(true);
+    });
+
     context.subscriptions.push(cmdValidate);
     context.subscriptions.push(cmdLint);
+    context.subscriptions.push(cmdConvertToJson);
+    context.subscriptions.push(cmdConvertToYaml);
 }
 exports.activate = activate;
 

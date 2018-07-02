@@ -2,7 +2,7 @@
   "name": "openapi-lint",
   "displayName": "openapi-lint",
   "description": "OpenAPI (Swagger) 3.0.x validator and linter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "mermade",
   "engines": {
     "vscode": "^1.24.0"
@@ -12,11 +12,21 @@
   ],
   "activationEvents": [
     "onCommand:extension.openapi-validate",
-    "onCommand:extension.openapi-lint"
+    "onCommand:extension.openapi-lint",
+    "onCommand:extension.openapi-to-json",
+    "onCommand:extension.openapi-to-yaml"
   ],
   "main": "./extension",
   "contributes": {
     "commands": [
+      {
+        "command": "extension.openapi-to-json",
+        "title": "OpenAPI to JSON"
+      },
+      {
+        "command": "extension.openapi-to-yaml",
+        "title": "OpenAPI to YAML"
+      },
       {
         "command": "extension.openapi-validate",
         "title": "OpenAPI Validate"
@@ -24,6 +34,22 @@
       {
         "command": "extension.openapi-lint",
         "title": "OpenAPI Lint"
+      }
+    ],
+    "yamlValidation": [
+      {
+        "fileMatch": "*openapi*.yaml",
+        "url": "./schemas/gnostic-3.0.json"
+      },
+      {
+        "fileMatch": "*openapi*.yml",
+        "url": "./schemas/gnostic-3.0.json"
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": "*openapi*.json",
+        "url": "./schemas/gnostic-3.0.json"
       }
     ]
   },
@@ -46,6 +72,9 @@
   "directories": {
     "test": "test"
   },
+  "extensionDependencies": [
+    "redhat.vscode-yaml"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mermade/openapi-lint-vscode.git"
