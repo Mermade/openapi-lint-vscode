@@ -36,6 +36,16 @@
         "title": "OpenAPI Lint"
       }
     ],
+    "snippets": [
+      {
+        "language": "json",
+        "path": "./snippets/json.json"
+      },
+      {
+        "language": "yaml",
+        "path": "./snippets/yaml.json"
+      }
+    ],
     "yamlValidation": [
       {
         "fileMatch": "*openapi*.yaml",

@@ -1,0 +1,13 @@
+{
+    "OpenAPI minimal": {
+        "prefix": "openapi",
+        "body": [
+            "openapi: 3.0.0",
+            "info:",
+            "  title: \"API\"",
+            "  version: \"1.0.0\"",
+            "paths: {}"
+        ],
+        "description": "OpenAPI minimal example in YAML"
+    }
+}

@@ -8,11 +8,12 @@ This extension can be used to validate and lint OpenAPI 3.0.x documents
 * Linting using `oas-linter`
 * Intellisense for files named `*openapi*.json`, `*openapi*.yaml`, `*openapi*.yml`
 * Conversion between JSON and YAML
+* Snippets (minimal valid JSON and YAML documents)
 
 ## Coming soon
 
 * Conversion from OAS (Swagger) 2.0 to OAS 3.0.0
-* Snippets (minimal JSON and YAML documents, minimal lintable documents)
+* Snippets (minimal lintable JSON and YAML documents)
 
 ## Screenshots
 
