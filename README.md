@@ -30,6 +30,6 @@ No configuration is currently possible or needed.
 
 See also the CHANGELOG.md
 
-### 1.0.0
+### 0.0.x
 
 Initial release of openapi-lint

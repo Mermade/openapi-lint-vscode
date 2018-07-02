@@ -1,14 +1,14 @@
 {
   "name": "openapi-lint",
   "displayName": "openapi-lint",
-  "description": "OpenAPI (Swagger) validator and linter",
+  "description": "OpenAPI (Swagger) 3.0.x validator and linter",
   "version": "0.0.1",
   "publisher": "mermade",
   "engines": {
     "vscode": "^1.24.0"
   },
   "categories": [
-    "Other"
+    "Linters"
   ],
   "activationEvents": [
     "onCommand:extension.openapi-validate",
