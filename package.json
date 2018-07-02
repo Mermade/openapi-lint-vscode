@@ -2,7 +2,7 @@
   "name": "openapi-lint",
   "displayName": "openapi-lint",
   "description": "OpenAPI (Swagger) 3.0.x validator and linter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "mermade",
   "engines": {
     "vscode": "^1.24.0"
@@ -54,12 +54,24 @@
       {
         "fileMatch": "*openapi*.yml",
         "url": "./schemas/gnostic-3.0.json"
+      },
+      {
+        "fileMatch": "swagger.yaml",
+        "url": "./schemas/openapi-2.0.json"
+      },
+      {
+        "fileMatch": "swagger.yml",
+        "url": "./schemas/openapi-2.0.json"
       }
     ],
     "jsonValidation": [
       {
-        "fileMatch": "*openapi*.json",
+        "fileMatch": "openapi.json",
         "url": "./schemas/gnostic-3.0.json"
+      },
+      {
+        "fileMatch": "swagger.json",
+        "url": "./schemas/openapi-2.0.json"
       }
     ]
   },
