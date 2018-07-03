@@ -2,13 +2,14 @@
   "name": "openapi-lint",
   "displayName": "openapi-lint",
   "description": "OpenAPI (Swagger) 3.0.x validator and linter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "mermade",
   "engines": {
     "vscode": "^1.24.0"
   },
   "categories": [
-    "Linters"
+    "Linters",
+    "Snippets"
   ],
   "activationEvents": [
     "onCommand:extension.openapi-validate",
@@ -20,20 +21,20 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.openapi-to-json",
-        "title": "OpenAPI to JSON"
-      },
-      {
-        "command": "extension.openapi-to-yaml",
-        "title": "OpenAPI to YAML"
-      },
-      {
         "command": "extension.openapi-validate",
         "title": "OpenAPI Validate"
       },
       {
         "command": "extension.openapi-lint",
         "title": "OpenAPI Lint"
+      },
+      {
+        "command": "extension.openapi-to-json",
+        "title": "OpenAPI to JSON"
+      },
+      {
+        "command": "extension.openapi-to-yaml",
+        "title": "OpenAPI to YAML"
       }
     ],
     "snippets": [
@@ -48,11 +49,11 @@
     ],
     "yamlValidation": [
       {
-        "fileMatch": "*openapi*.yaml",
+        "fileMatch": "openapi.yaml",
         "url": "./schemas/gnostic-3.0.json"
       },
       {
-        "fileMatch": "*openapi*.yml",
+        "fileMatch": "openapi.yml",
         "url": "./schemas/gnostic-3.0.json"
       },
       {
@@ -75,6 +76,7 @@
       }
     ]
   },
+  "icon": "images/icon.png",
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test"
