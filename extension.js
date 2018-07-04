@@ -3,8 +3,37 @@
 const vscode = require('vscode');
 const yaml = require('js-yaml');
 const validator = require('oas-validator');
+const converter = require('swagger2openapi');
 
 function convert(yamlMode) {
+    let editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        vscode.window.showInformationMessage('You must have an open editor window to convert an OpenAPI document');
+        return; // No open text editor
+    }
+    converter.convertStr(editor.document.getText(),{ patch: true, warnOnly: true }, function(err, options) {
+        if (yamlMode) {
+            vscode.workspace.openTextDocument({ language: 'yaml', content: yaml.safeDump(options.openapi) })
+            .then(function(doc) {
+                vscode.window.showTextDocument(doc);
+            })
+            .catch(function(ex){
+                console.error(ex);
+            });
+        }
+        else {
+            vscode.workspace.openTextDocument({ language: 'json', content: JSON.stringify(options.openapi, null, 2)})
+            .then(function(doc) {
+                vscode.window.showTextDocument(doc);
+            })
+            .catch(function(ex){
+                console.error(ex);
+            });
+        }
+    });
+}
+
+function translate(yamlMode) {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
         vscode.window.showInformationMessage('You must have an open editor window to convert an OpenAPI document');
@@ -69,10 +98,6 @@ function validate(lint) {
 // your extension is activated the very first time the command is executed
 function activate(context) {
 
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Extension "openapi-lint" activated.');
-
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
@@ -86,18 +111,32 @@ function activate(context) {
     	validate(true);
     });
 
-    let cmdConvertToJson = vscode.commands.registerCommand('extension.openapi-to-json', function() {
+    let cmdTranslateToJson = vscode.commands.registerCommand('extension.openapi-to-json', function() {
+        translate(false);
+    });
+
+    let cmdTranslateToYaml = vscode.commands.registerCommand('extension.openapi-to-yaml', function() {
+        translate(true);
+    });
+
+    let cmdConvertJson = vscode.commands.registerCommand('extension.openapi-convert-json', function() {
         convert(false);
     });
 
-    let cmdConvertToYaml = vscode.commands.registerCommand('extension.openapi-to-yaml', function() {
+    let cmdConvertYaml = vscode.commands.registerCommand('extension.openapi-convert-yaml', function() {
         convert(true);
     });
 
     context.subscriptions.push(cmdValidate);
     context.subscriptions.push(cmdLint);
-    context.subscriptions.push(cmdConvertToJson);
-    context.subscriptions.push(cmdConvertToYaml);
+    context.subscriptions.push(cmdConvertJson);
+    context.subscriptions.push(cmdConvertYaml);
+    context.subscriptions.push(cmdTranslateToJson);
+    context.subscriptions.push(cmdTranslateToYaml);
+
+    // Use the console to output diagnostic information (console.log) and errors (console.error)
+    // This line of code will only be executed once when your extension is activated
+    console.log('Extension "openapi-lint" activated. '+context.subscriptions.length);
 }
 exports.activate = activate;
 

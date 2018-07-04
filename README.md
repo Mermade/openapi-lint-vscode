@@ -1,9 +1,13 @@
 # openapi-lint README
 
-This extension can be used to validate and [lint](https://en.wikipedia.org/wiki/Lint_(software)) OpenAPI 3.0.x documents. It provides two Visual Studio Code commands:
+This extension can be used to validate and [lint](https://en.wikipedia.org/wiki/Lint_(software)) OpenAPI 3.0.x documents, and convert between OpenAPI 2.0 and 3.0.0. It provides six Visual Studio Code commands:
 
 * OpenAPI Validate - which fully validates your OpenAPI document against the [specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.1.md)
 * OpenAPI Lint - which additionally applies a lightly-opinionated set of best-practices
+* OpenAPI 2.0 to 3.0.0 (YAML) - which converts the current OpenAPI 2.0 document to 3.0.0 in YAML
+* OpenAPI 2.0 to 3.0.0 (JSON) - which converts the current OpenAPI 2.0 document to 3.0.0 in JSON
+* OpenAPI to JSON - which simply translates the current document to JSON
+* OpenAPI to YAML - which simply translates the current document to YAML
 
 The validator enforces restrictions which cannot be expressed by the JSON Schema which drives the intellisense features, so it will pick up on more errors.
 
@@ -20,9 +24,8 @@ The best documentation currently for the linter rules is that of [Speccy](http:/
 
 ## Coming soon
 
-* Conversion from OAS (Swagger) 2.0 to OAS 3.0.0
-* Validation and linting with optional resolution
-* Snippets (minimal lintable JSON and YAML documents)
+* Validation, linting and conversion with external `$ref` resolution
+* More snippets (minimal lintable JSON and YAML documents)
 
 ## Screenshots
 

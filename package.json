@@ -1,8 +1,8 @@
 {
   "name": "openapi-lint",
   "displayName": "openapi-lint",
-  "description": "OpenAPI (Swagger) 3.0.x validator and linter",
-  "version": "0.2.1",
+  "description": "OpenAPI (Swagger) 2.0/3.0.x intellisense, validator and linter",
+  "version": "0.3.0",
   "publisher": "mermade",
   "engines": {
     "vscode": "^1.24.0"
@@ -15,7 +15,9 @@
     "onCommand:extension.openapi-validate",
     "onCommand:extension.openapi-lint",
     "onCommand:extension.openapi-to-json",
-    "onCommand:extension.openapi-to-yaml"
+    "onCommand:extension.openapi-to-yaml",
+    "onCommand:extension.openapi-convert-yaml",
+    "onCommand:extension.openapi-convert-json"
   ],
   "main": "./extension",
   "contributes": {
@@ -27,6 +29,14 @@
       {
         "command": "extension.openapi-lint",
         "title": "OpenAPI Lint"
+      },
+      {
+        "command": "extension.openapi-convert-json",
+        "title": "OpenAPI 2.0 to 3.0.0 (JSON)"
+      },
+      {
+        "command": "extension.openapi-convert-yaml",
+        "title": "OpenAPI 2.0 to 3.0.0 (YAML)"
       },
       {
         "command": "extension.openapi-to-json",
@@ -91,7 +101,8 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "js-yaml": "^3.12.0",
-    "oas-validator": "^1.1.3"
+    "oas-validator": "^1.1.3",
+    "swagger2openapi": "^3.2.4"
   },
   "directories": {
     "test": "test"
@@ -108,8 +119,6 @@
     "oas",
     "swagger",
     "lint",
-    "linter",
-    "validate",
     "validator"
   ],
   "author": "Mike Ralphson",
