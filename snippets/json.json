@@ -1,5 +1,5 @@
 {
-    "OpenAPI minimal": {
+    "OpenAPI 3.0 minimal": {
         "prefix": "openapi",
         "body": [
             "{",
@@ -11,9 +11,34 @@
             "  \"paths\": {}",
             "}"
         ],
-        "description": "OpenAPI minimal example in JSON"
+        "description": "OpenAPI 3.0 minimal example in JSON"
     },
-    "Swagger minimal": {
+    "OpenAPI 3.0 lintable": {
+        "prefix": "openapi",
+        "body": [
+            "{",
+            "  \"openapi\": \"3.0.0\",",
+            "  \"info\":{",
+            "    \"title\": \"API\",",
+            "    \"version\": \"1.0.0\",",
+            "    \"contact\": {",
+            "      \"name\": \"Contact Name\",",
+            "      \"email\": \"contact@example.com\",",
+            "      \"url\": \"https://example.com/\"",
+            "    }",
+            "  },",
+            "  \"tags\": [",
+            "    {",
+            "      \"name\": \"Metadata\",",
+            "      \"description\": \"Metadata related requests\"",
+            "    }",
+            "  ],",
+            "  \"paths\": {}",
+            "}"
+        ],
+        "description": "OpenAPI 3.0 lintable example in JSON"
+    },
+    "Swagger 2.0 minimal": {
         "prefix": "swagger",
         "body": [
             "{",
@@ -25,6 +50,31 @@
             "  \"paths\": {}",
             "}"
         ],
-        "description": "Swagger minimal example in JSON"
+        "description": "Swagger 2.0 minimal example in JSON"
+    },
+    "Swagger 2.0 lintable": {
+        "prefix": "swagger",
+        "body": [
+            "{",
+            "  \"swagger\": \"2.0\",",
+            "  \"info\":{",
+            "    \"title\": \"API\",",
+            "    \"version\": \"1.0.0\",",
+            "    \"contact\": {",
+            "      \"name\": \"Contact Name\",",
+            "      \"email\": \"contact@example.com\",",
+            "      \"url\": \"https://example.com/\"",
+            "    }",
+            "  },",
+            "  \"tags\": [",
+            "    {",
+            "      \"name\": \"Metadata\",",
+            "      \"description\": \"Metadata related requests\"",
+            "    }",
+            "  ],",
+            "  \"paths\": {}",
+            "}"
+        ],
+        "description": "Swagger 2.0 lintable example in JSON"
     }
 }

@@ -18,8 +18,8 @@ The best documentation currently for the linter rules is that of [Speccy](http:/
 * Validation using [oas-validator](https://github.com/Mermade/oas-kit/tree/master/packages/oas-validator) from [OAS-Kit](https://mermade.github.io/oas-kit/)
 * Linting using [oas-linter](https://github.com/Mermade/oas-kit/tree/master/packages/oas-linter) also from OAS-Kit
 * Conversion using [swagger2openapi](https://github.com/Mermade/oas-kit/tree/master/packages/swagger2openapi) also from OAS-Kit
-* OAS v3 intellisense for files named `*openapi.json`, `*openapi.yaml`, `*openapi.yml`
-* OAS v2 intellisense for files named `*swagger.json`, `*swagger.yaml`, `*swagger.yml`
+* OAS v3 intellisense for files named `*openapi.json`, `*openapi.yaml`, `*openapi.yml`, `*oas3.json`, `*oas3.yaml`, `*oas3.yml`
+* OAS v2 intellisense for files named `*swagger.json`, `*swagger.yaml`, `*swagger.yml`, `*oas2.json`, `*oas2.yaml`, `*oas2.yml`
 * Conversion between JSON and YAML
 * Snippets (minimal valid openapi/swagger JSON and YAML documents)
 

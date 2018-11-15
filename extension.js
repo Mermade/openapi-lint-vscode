@@ -17,7 +17,7 @@ function convert(yamlMode) {
             .then(function(doc) {
                 vscode.window.showTextDocument(doc);
             })
-            .catch(function(ex){
+            .then(function(ex) {
                 console.error(ex);
             });
         }
@@ -26,7 +26,7 @@ function convert(yamlMode) {
             .then(function(doc) {
                 vscode.window.showTextDocument(doc);
             })
-            .catch(function(ex){
+            .then(function(ex){
                 console.error(ex);
             });
         }
@@ -76,10 +76,9 @@ function validate(lint) {
     try {
     	let options = { lint: lint };
         let obj = yaml.safeLoad(text,{ json: true });
-	    let result = false;
         try {
-            result = validator.validateSync(obj, options);
-          	vscode.window.showInformationMessage('Your OpenAPI document is valid!');
+            validator.validateSync(obj, options);
+          	vscode.window.showInformationMessage('Your OpenAPI document is',lint ? 'excellent!' : 'valid.');
 	    	return;
         }
 	    catch (ex) {
