@@ -78,7 +78,7 @@ function validate(lint) {
         let obj = yaml.safeLoad(text,{ json: true });
         try {
             validator.validateSync(obj, options);
-          	vscode.window.showInformationMessage('Your OpenAPI document is',lint ? 'excellent!' : 'valid.');
+          	vscode.window.showInformationMessage('Your OpenAPI document is:',lint ? 'excellent!' : 'valid.');
 	    	return;
         }
 	    catch (ex) {
@@ -92,6 +92,34 @@ function validate(lint) {
         vscode.window.showErrorMessage('Could not parse OpenAPI document!');
     }
 }
+
+/*function optionallyValidateOnSave(document) {
+    return new Promise(function(resolve,reject){
+        let text = document.getText();
+        try {
+            let obj = yaml.safeLoad(text,{ json: true });
+            if (!obj || (!obj.openapi && !obj.swagger)) reject(false);
+            let options = {};
+            try {
+                validator.validateSync(obj, options);
+                resolve(true);
+            }
+            catch (ex) {
+                let message = 'Your OpenAPI document is not valid :(\n';
+                if (options.context) message += options.context.pop()+'\n';
+                message += ex.message;
+                vscode.window.showErrorMessage(message);
+                // TODO maybe have a setting for preventing the save (if possible)?
+                reject(false);
+            }
+        }
+        catch (ex) {
+            // fail to parse is not a problem
+            resolve(true);
+        }
+    });
+}
+*/
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -132,6 +160,11 @@ function activate(context) {
     context.subscriptions.push(cmdConvertYaml);
     context.subscriptions.push(cmdTranslateToJson);
     context.subscriptions.push(cmdTranslateToYaml);
+
+    //context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(function(document){
+    //    return optionallyValidateOnSave(document);
+    //}));
+    //console.log('openapi-lint: Installed save handler')
 
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
