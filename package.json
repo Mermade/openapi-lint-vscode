@@ -2,7 +2,7 @@
   "name": "openapi-lint",
   "displayName": "openapi-lint",
   "description": "OpenAPI (Swagger) 2.0/3.0.x intellisense, validator and linter",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "publisher": "mermade",
   "engines": {
     "vscode": "^1.24.0"
@@ -59,6 +59,14 @@
     ],
     "yamlValidation": [
       {
+        "fileMatch": "*asyncapi.yaml",
+        "url": "./schemas/asyncapi.json"
+      },
+      {
+        "fileMatch": "*asyncapi.yml",
+        "url": "./schemas/asyncapi.json"
+      },
+      {
         "fileMatch": "*openapi.yaml",
         "url": "./schemas/gnostic-3.0.json"
       },
@@ -93,6 +101,10 @@
     ],
     "jsonValidation": [
       {
+        "fileMatch": "*asyncapi.json",
+        "url": "./schemas/asyncapi.json"
+      },
+      {
         "fileMatch": "*openapi.json",
         "url": "./schemas/gnostic-3.0.json"
       },
@@ -117,7 +129,7 @@
   },
   "devDependencies": {
     "typescript": "^2.6.1",
-    "vscode": "^1.1.21",
+    "vscode": "^1.1.22",
     "eslint": "^4.11.0",
     "@types/node": "^7.0.43",
     "@types/mocha": "^2.2.42"
@@ -139,10 +151,9 @@
   },
   "keywords": [
     "openapi",
-    "oas",
+    "asyncapi",
     "swagger",
-    "lint",
-    "validator"
+    "lint"
   ],
   "author": "Mike Ralphson",
   "license": "BSD-3-Clause",

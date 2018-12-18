@@ -22,6 +22,8 @@ The best documentation currently for the linter rules is that of [Speccy](http:/
 * OAS v2 intellisense for files named `*swagger.json`, `*swagger.yaml`, `*swagger.yml`, `*oas2.json`, `*oas2.yaml`, `*oas2.yml`
 * Conversion between JSON and YAML
 * Snippets (minimal valid openapi/swagger JSON and YAML documents)
+* AsyncAPI v1.2.0 intellisense for files named `*asyncapi.json`, `*asyncapi.yaml`, `*asyncapi.yml`
+
 
 ## Coming soon
 
