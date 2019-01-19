@@ -18,7 +18,7 @@ The validator enforces semantic restrictions which cannot be expressed by the JS
 
 The linter applies a lightly opinionated set of 'best practices' to your API document, making it complete and comprehensive, as opposed to merely minimally valid.
 
-The best documentation currently for the linter rules is that of [Speccy](http://speccy.io/rules/), which shares code with this project. The linter [rules format](https://mermade.github.io/oas-kit/linter-rules.html) is also documented.
+The best documentation currently for the linter rules is that of [Speccy](http://speccy.io/rules/1-rulesets), which shares code with this project. The linter [rules format](https://mermade.github.io/oas-kit/linter-rules.html) is also documented.
 
 ## Features
 
