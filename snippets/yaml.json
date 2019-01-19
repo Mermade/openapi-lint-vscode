@@ -24,7 +24,15 @@
             "tags:",
             "  - name: Metadata",
             "    description: Metadata related requests",
-            "paths: {}"
+            "paths:",
+            "  /:",
+            "    get:",
+            "      operationId: getMetadata",
+            "      summary: Get metadata from the root of the API",
+            "      tags: [ 'Metadata' ]",
+            "      responses:",
+            "        '200':",
+            "          description: OK"
         ],
         "description": "OpenAPI 3.0 minimal example in YAML"
     },
