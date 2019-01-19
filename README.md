@@ -63,8 +63,4 @@ No configuration is currently possible or needed.
 
 ## Release Notes
 
-See also the CHANGELOG.md
-
-### 0.x.x
-
-Initial alpha releases of openapi-lint
+See the [CHANGELOG](./CHANGELOG.md)
