@@ -1,7 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+const util = require('util');
 const vscode = require('vscode');
-const yaml = require('js-yaml');
+const yaml = require('yaml');
 const validator = require('oas-validator');
 const converter = require('swagger2openapi');
 
@@ -13,7 +14,7 @@ function convert(yamlMode) {
     }
     converter.convertStr(editor.document.getText(),{ patch: true, warnOnly: true }, function(err, options) {
         if (yamlMode) {
-            vscode.workspace.openTextDocument({ language: 'yaml', content: yaml.safeDump(options.openapi) })
+            vscode.workspace.openTextDocument({ language: 'yaml', content: yaml.stringify(options.openapi) })
             .then(function(doc) {
                 vscode.window.showTextDocument(doc);
             })
@@ -42,10 +43,10 @@ function translate(yamlMode) {
 
     let text = editor.document.getText();
     try {
-        let obj = yaml.safeLoad(text,{ json: true });
+        let obj = yaml.parse(text);
         let out = '';
         if (yamlMode) {
-            out = yaml.safeDump(obj);
+            out = yaml.stringify(obj);
         }
         else {
            out = JSON.stringify(obj, null, 2);
@@ -62,6 +63,7 @@ function translate(yamlMode) {
     }
     catch (ex) {
         vscode.window.showErrorMessage('Could not parse OpenAPI document!\n'+ex.message);
+        console.warn(ex.message);
     }
 }
 
@@ -75,21 +77,24 @@ function validate(lint) {
     let text = editor.document.getText();
     try {
     	let options = { lint: lint };
-        let obj = yaml.safeLoad(text,{ json: true });
-        try {
-            validator.validateSync(obj, options);
-          	vscode.window.showInformationMessage('Your OpenAPI document is:',lint ? 'excellent!' : 'valid.');
-	    	return;
-        }
-	    catch (ex) {
-	    	let message = 'Your OpenAPI document is not valid :(\n';
-	    	if (options.context) message += options.context.pop()+'\n';
-	    	message += ex.message;
+        let obj = yaml.parse(text);
+        validator.validateSync(obj, options)
+        .then(function(options){
+            vscode.window.showInformationMessage('Your OpenAPI document is:',lint ? 'excellent!' : 'valid.');
+        })
+	    .catch(function(ex){
+	    	let message = 'Your OpenAPI document is not '+(options.valid ? 'perfect' : 'valid') + ' :( \n';
+	    	if (options.context) message += options.context.pop()+' \n';
+            message += ex.message + '. \n';
+            for (let warning of options.warnings||[]) {
+                message += warning.message + ' ' + warning.pointer + ' ' + warning.ruleName + '. \n';
+            }
         	vscode.window.showErrorMessage(message);
-	    }
+	    });
     }
     catch (ex) {
         vscode.window.showErrorMessage('Could not parse OpenAPI document!');
+        console.warn(ex.message);
     }
 }
 
@@ -97,7 +102,7 @@ function validate(lint) {
     return new Promise(function(resolve,reject){
         let text = document.getText();
         try {
-            let obj = yaml.safeLoad(text,{ json: true });
+            let obj = yaml.parse(text);
             if (!obj || (!obj.openapi && !obj.swagger)) reject(false);
             let options = {};
             try {

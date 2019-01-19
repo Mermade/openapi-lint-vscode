@@ -135,9 +135,9 @@
     "@types/mocha": "^2.2.42"
   },
   "dependencies": {
-    "js-yaml": "^3.12.0",
-    "oas-validator": "^1.1.13",
-    "swagger2openapi": "^3.2.14"
+    "oas-validator": "^3.0.1",
+    "swagger2openapi": "^5.0.2",
+    "yaml": "^1.2.1"
   },
   "directories": {
     "test": "test"
