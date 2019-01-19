@@ -1,9 +1,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-const util = require('util');
 const vscode = require('vscode');
 const yaml = require('yaml');
 const validator = require('oas-validator');
+const resolver = require('oas-resolver');
 const converter = require('swagger2openapi');
 
 function convert(yamlMode) {
@@ -67,18 +67,77 @@ function translate(yamlMode) {
     }
 }
 
-function validate(lint) {
+function bundle() {
+    let editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        vscode.window.showInformationMessage('You must have an open editor window to resolve an OpenAPI document');
+        return; // No open text editor
+    }
+    if (editor.document.isUntitled) {
+        vscode.window.showInformationMessage('Document must be saved in order to resolve correctly');
+        return; // No open text editor
+    }
+    let text = editor.document.getText();
+    let yamlMode = false;
+    let obj = {};
+    try {
+        obj = JSON.parse(text);
+    }
+    catch (ex) {
+        try {
+            obj = yaml.parse(text);
+            yamlMode = true;
+        }
+        catch (ex) {
+            vscode.window.showInformationMessage('Could not parse OpenAPI document as JSON or YAML');
+            console.warn(ex.message);
+            return;
+        }
+    }
+    resolver.resolve(obj, editor.document.fileName, {})
+    .then(function(options){
+        if (yamlMode) {
+            vscode.workspace.openTextDocument({ language: 'yaml', content: yaml.stringify(options.openapi) })
+            .then(function(doc) {
+                vscode.window.showTextDocument(doc);
+            })
+            .then(function(ex) {
+                console.error(ex);
+            });
+        }
+        else {
+            vscode.workspace.openTextDocument({ language: 'json', content: JSON.stringify(options.openapi, null, 2)})
+            .then(function(doc) {
+                vscode.window.showTextDocument(doc);
+            })
+            .then(function(ex){
+                console.error(ex);
+            });
+        }
+    })
+    .catch(function(ex){
+        vscode.window.showInformationMessage('Could not parse OpenAPI document as JSON or YAML');
+        console.warn(ex.message);
+    });
+}
+
+function validate(lint, resolve) {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
         vscode.window.showInformationMessage('You must have an open editor window to validate an OpenAPI document');
         return; // No open text editor
     }
 
+    if (resolve && editor.document.isUntitled) {
+        vscode.window.showInformationMessage('Document must be saved in order to resolve correctly');
+        return; // No open text editor
+    }
+
     let text = editor.document.getText();
     try {
-    	let options = { lint: lint };
+    	let options = { lint: lint, resolve: resolve, source: editor.document.fileName };
         let obj = yaml.parse(text);
-        validator.validateSync(obj, options)
+        validator.validate(obj, options)
         .then(function(options){
             vscode.window.showInformationMessage('Your OpenAPI document is:',lint ? 'excellent!' : 'valid.');
         })
@@ -134,13 +193,23 @@ function activate(context) {
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
     let cmdValidate = vscode.commands.registerCommand('extension.openapi-validate', function () {
-        // The code you place here will be executed every time your command is executed
-    	validate(false);
+    	validate(false, false);
     });
 
     let cmdLint = vscode.commands.registerCommand('extension.openapi-lint', function () {
-        // The code you place here will be executed every time your command is executed
-    	validate(true);
+    	validate(true, false);
+    });
+
+    let cmdValidateResolved = vscode.commands.registerCommand('extension.openapi-validate-resolved', function () {
+    	validate(false, true);
+    });
+
+    let cmdLintResolved = vscode.commands.registerCommand('extension.openapi-lint-resolved', function () {
+    	validate(true, true);
+    });
+
+    let cmdBundle = vscode.commands.registerCommand('extension.openapi-bundle', function () {
+    	bundle();
     });
 
     let cmdTranslateToJson = vscode.commands.registerCommand('extension.openapi-to-json', function() {
@@ -161,6 +230,9 @@ function activate(context) {
 
     context.subscriptions.push(cmdValidate);
     context.subscriptions.push(cmdLint);
+    context.subscriptions.push(cmdValidateResolved);
+    context.subscriptions.push(cmdLintResolved);
+    context.subscriptions.push(cmdBundle);
     context.subscriptions.push(cmdConvertJson);
     context.subscriptions.push(cmdConvertYaml);
     context.subscriptions.push(cmdTranslateToJson);

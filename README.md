@@ -1,9 +1,12 @@
 # openapi-lint README
 
-This extension can be used to validate and [lint](https://en.wikipedia.org/wiki/Lint_(software)) OpenAPI 3.0.x documents, and convert between OpenAPI 2.0 and 3.0.0. It provides six Visual Studio Code commands:
+This extension can be used to validate and [lint](https://en.wikipedia.org/wiki/Lint_(software)) OpenAPI 3.0.x documents, and convert between OpenAPI 2.0 and 3.0.0. It provides nine Visual Studio Code commands:
 
 * OpenAPI Validate - which fully validates your OpenAPI document against the [specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.1.md)
 * OpenAPI Lint - which additionally applies a lightly-opinionated set of best-practices
+* OpenAPI Resolve and Validate - which pulls in external `$ref`s before validating
+* OpenAPI Resolve and Lint - which pulls in external `$ref`s before linting
+* OpenAPI Resolve (Bundle) - which resolves external `$ref`s to a new window
 * OpenAPI 2.0 to 3.0.0 (YAML) - which converts the current OpenAPI 2.0 document to 3.0.0 in YAML
 * OpenAPI 2.0 to 3.0.0 (JSON) - which converts the current OpenAPI 2.0 document to 3.0.0 in JSON
 * OpenAPI to JSON - which simply translates the current document to JSON
@@ -17,6 +20,7 @@ The best documentation currently for the linter rules is that of [Speccy](http:/
 
 * Validation using [oas-validator](https://github.com/Mermade/oas-kit/tree/master/packages/oas-validator) from [OAS-Kit](https://mermade.github.io/oas-kit/)
 * Linting using [oas-linter](https://github.com/Mermade/oas-kit/tree/master/packages/oas-linter) also from OAS-Kit
+* Resolution using [oas-resolver](https://github.com/Mermade/oas-kit/tree/master/packages/oas-resolver) also from OAS-Kit
 * Conversion using [swagger2openapi](https://github.com/Mermade/oas-kit/tree/master/packages/swagger2openapi) also from OAS-Kit
 * OAS v3 intellisense for files named `*openapi.json`, `*openapi.yaml`, `*openapi.yml`, `*oas3.json`, `*oas3.yaml`, `*oas3.yml`
 * OAS v2 intellisense for files named `*swagger.json`, `*swagger.yaml`, `*swagger.yml`, `*oas2.json`, `*oas2.yaml`, `*oas2.yml`
@@ -24,13 +28,12 @@ The best documentation currently for the linter rules is that of [Speccy](http:/
 * Snippets (minimal valid openapi/swagger JSON and YAML documents)
 * AsyncAPI v1.2.0 intellisense for files named `*asyncapi.json`, `*asyncapi.yaml`, `*asyncapi.yml`
 
-
 ## Coming soon
 
-* Validation, linting and conversion with external `$ref` resolution
-* More snippets (minimal lintable JSON and YAML documents)
+* More snippets
 * Integration with [APIs.guru OpenAPI directory](https://github.com/apis-guru/openapi-directory)
-* Extract default rules to new tab to allow saving as overrides
+* Integration with [APIs.guru AsyncAPI directory](https://github.com/apis-guru/asyncapi-directory)
+* Extract default linter rules to new tab to allow saving as overrides
 
 ## Screenshots
 

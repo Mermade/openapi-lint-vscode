@@ -14,6 +14,9 @@
   "activationEvents": [
     "onCommand:extension.openapi-validate",
     "onCommand:extension.openapi-lint",
+    "onCommand:extension.openapi-validate-resolved",
+    "onCommand:extension.openapi-lint-resolved",
+    "onCommand:extension.openapi-bundle",
     "onCommand:extension.openapi-to-json",
     "onCommand:extension.openapi-to-yaml",
     "onCommand:extension.openapi-convert-yaml",
@@ -27,8 +30,20 @@
         "title": "OpenAPI Validate"
       },
       {
+        "command": "extension.openapi-validate-resolved",
+        "title": "OpenAPI Resolve and Validate"
+      },
+      {
         "command": "extension.openapi-lint",
         "title": "OpenAPI Lint"
+      },
+      {
+        "command": "extension.openapi-lint-resolved",
+        "title": "OpenAPI Resolve and Lint"
+      },
+      {
+        "command": "extension.openapi-bundle",
+        "title": "OpenAPI Resolve (bundle)"
       },
       {
         "command": "extension.openapi-convert-json",
@@ -135,6 +150,7 @@
     "@types/mocha": "^2.2.42"
   },
   "dependencies": {
+    "oas-resolver": "^2.0.0",
     "oas-validator": "^3.0.1",
     "swagger2openapi": "^5.0.2",
     "yaml": "^1.2.1"
@@ -147,7 +163,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mermade/openapi-lint-vscode.git"
+    "url": "https://github.com/Mermade/openapi-lint-vscode.git"
   },
   "keywords": [
     "openapi",

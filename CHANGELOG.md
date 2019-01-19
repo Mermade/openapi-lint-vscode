@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [0.5.0]
 - Update `oas-kit` to latest versions
 - Migrate from 'js-yaml' to `yaml`
+- Add resolver functionality for validating, linting and bundling
 - Make lintable snippets more complete to pass new tests
 
 ## [0.4.0]
