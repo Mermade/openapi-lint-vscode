@@ -6,29 +6,27 @@ const validator = require('oas-validator');
 const resolver = require('oas-resolver');
 const converter = require('swagger2openapi');
 
-function convert(yamlMode) {
+function convert(yamlMode, resolve) {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
         vscode.window.showInformationMessage('You must have an open editor window to convert an OpenAPI document');
         return; // No open text editor
     }
-    converter.convertStr(editor.document.getText(),{ patch: true, warnOnly: true }, function(err, options) {
+    if (resolve && editor.document.isUntitled) {
+        vscode.window.showInformationMessage('Document must be saved in order to resolve correctly');
+        return; // No open text editor
+    }
+    converter.convertStr(editor.document.getText(),{ patch: true, warnOnly: true, resolve: resolve, source: editor.document.fileName }, function(err, options) {
         if (yamlMode) {
             vscode.workspace.openTextDocument({ language: 'yaml', content: yaml.stringify(options.openapi) })
             .then(function(doc) {
                 vscode.window.showTextDocument(doc);
-            })
-            .then(function(ex) {
-                console.error(ex);
             });
         }
         else {
             vscode.workspace.openTextDocument({ language: 'json', content: JSON.stringify(options.openapi, null, 2)})
             .then(function(doc) {
                 vscode.window.showTextDocument(doc);
-            })
-            .then(function(ex){
-                console.error(ex);
             });
         }
     });
@@ -221,11 +219,19 @@ function activate(context) {
     });
 
     let cmdConvertJson = vscode.commands.registerCommand('extension.openapi-convert-json', function() {
-        convert(false);
+        convert(false, false);
     });
 
     let cmdConvertYaml = vscode.commands.registerCommand('extension.openapi-convert-yaml', function() {
-        convert(true);
+        convert(true, false);
+    });
+
+    let cmdConvertJsonResolved = vscode.commands.registerCommand('extension.openapi-convert-json-resolved', function() {
+        convert(false, true);
+    });
+
+    let cmdConvertYamlResolved = vscode.commands.registerCommand('extension.openapi-convert-yaml-resolved', function() {
+        convert(true, true);
     });
 
     context.subscriptions.push(cmdValidate);
@@ -235,6 +241,8 @@ function activate(context) {
     context.subscriptions.push(cmdBundle);
     context.subscriptions.push(cmdConvertJson);
     context.subscriptions.push(cmdConvertYaml);
+    context.subscriptions.push(cmdConvertJsonResolved);
+    context.subscriptions.push(cmdConvertYamlResolved);
     context.subscriptions.push(cmdTranslateToJson);
     context.subscriptions.push(cmdTranslateToYaml);
 

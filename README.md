@@ -1,18 +1,22 @@
 # openapi-lint README
 
-This extension can be used to validate and [lint](https://en.wikipedia.org/wiki/Lint_(software)) OpenAPI 3.0.x documents, and convert between OpenAPI 2.0 and 3.0.0. It provides nine Visual Studio Code commands:
+This extension can be used to validate and [lint](https://en.wikipedia.org/wiki/Lint_(software)) OpenAPI 3.0.x documents, and convert between OpenAPI 2.0 and 3.0.0. It provides 11 Visual Studio Code commands:
 
-* OpenAPI Validate - which fully validates your OpenAPI document against the [specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.1.md)
+* OpenAPI Validate - which fully validates your OpenAPI document against the [specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)
 * OpenAPI Lint - which additionally applies a lightly-opinionated set of best-practices
 * OpenAPI Resolve and Validate - which pulls in external `$ref`s before validating
 * OpenAPI Resolve and Lint - which pulls in external `$ref`s before linting
 * OpenAPI Resolve (Bundle) - which resolves external `$ref`s to a new window
 * OpenAPI 2.0 to 3.0.0 (YAML) - which converts the current OpenAPI 2.0 document to 3.0.0 in YAML
 * OpenAPI 2.0 to 3.0.0 (JSON) - which converts the current OpenAPI 2.0 document to 3.0.0 in JSON
+* OpenAPI 2.0 to 3.0.0 (YAML/Resolved) - like the above but resolving external `$ref`s
+* OpenAPI 2.0 to 3.0.0 (JSON/Resolved) - like the above but resolving external `$ref`s
 * OpenAPI to JSON - which simply translates the current document to JSON
 * OpenAPI to YAML - which simply translates the current document to YAML
 
-The validator enforces restrictions which cannot be expressed by the JSON Schema which drives the intellisense features, so it will pick up on more errors.
+The validator enforces semantic restrictions which cannot be expressed by the JSON Schema which drives the intellisense features, so it will pick up on many more errors.
+
+The linter applies a lightly opinionated set of 'best practices' to your API document, making it complete and comprehensive, as opposed to merely minimally valid.
 
 The best documentation currently for the linter rules is that of [Speccy](http://speccy.io/rules/), which shares code with this project. The linter [rules format](https://mermade.github.io/oas-kit/linter-rules.html) is also documented.
 
