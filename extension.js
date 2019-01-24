@@ -16,7 +16,7 @@ function convert(yamlMode, resolve) {
         vscode.window.showInformationMessage('Document must be saved in order to resolve correctly');
         return; // No open text editor
     }
-    converter.convertStr(editor.document.getText(),{ patch: true, warnOnly: true, resolve: resolve, source: editor.document.fileName }, function(err, options) {
+    converter.convertStr(editor.document.getText(),{ patch: true, warnOnly: true, resolve: resolve, source: editor.document.fileName, fatal: true }, function(err, options) {
         if (yamlMode) {
             vscode.workspace.openTextDocument({ language: 'yaml', content: yaml.stringify(options.openapi) })
             .then(function(doc) {
@@ -133,7 +133,7 @@ function validate(lint, resolve) {
 
     let text = editor.document.getText();
     try {
-    	let options = { lint: lint, resolve: resolve, source: editor.document.fileName };
+        let options = { lint: lint, resolve: resolve, fatal: true, source: editor.document.fileName };
         let obj = yaml.parse(text);
         validator.validate(obj, options)
         .then(function(options){
