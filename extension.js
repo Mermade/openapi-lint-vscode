@@ -9,11 +9,11 @@ const converter = require('swagger2openapi');
 function convert(yamlMode, resolve) {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
-        vscode.window.showInformationMessage('You must have an open editor window to convert an OpenAPI document');
+        vscode.window.showWarningMessage('You must have an open editor window to convert an OpenAPI document');
         return; // No open text editor
     }
     if (resolve && editor.document.isUntitled) {
-        vscode.window.showInformationMessage('Document must be saved in order to resolve correctly');
+        vscode.window.showWarningMessage('Document must be saved in order to resolve correctly');
         return; // No open text editor
     }
     converter.convertStr(editor.document.getText(),{ patch: true, warnOnly: true, resolve: resolve, source: editor.document.fileName, fatal: true }, function(err, options) {
@@ -35,7 +35,7 @@ function convert(yamlMode, resolve) {
 function translate(yamlMode) {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
-        vscode.window.showInformationMessage('You must have an open editor window to convert an OpenAPI document');
+        vscode.window.showWarningMessage('You must have an open editor window to convert an OpenAPI document');
         return; // No open text editor
     }
 
@@ -68,11 +68,11 @@ function translate(yamlMode) {
 function bundle() {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
-        vscode.window.showInformationMessage('You must have an open editor window to resolve an OpenAPI document');
+        vscode.window.showWarningMessage('You must have an open editor window to resolve an OpenAPI document');
         return; // No open text editor
     }
     if (editor.document.isUntitled) {
-        vscode.window.showInformationMessage('Document must be saved in order to resolve correctly');
+        vscode.window.showWarningMessage('Document must be saved in order to resolve correctly');
         return; // No open text editor
     }
     let text = editor.document.getText();
@@ -87,7 +87,7 @@ function bundle() {
             yamlMode = true;
         }
         catch (ex) {
-            vscode.window.showInformationMessage('Could not parse OpenAPI document as JSON or YAML');
+            vscode.window.showErrorMessage('Could not parse OpenAPI document as JSON or YAML');
             console.warn(ex.message);
             return;
         }
@@ -114,7 +114,7 @@ function bundle() {
         }
     })
     .catch(function(ex){
-        vscode.window.showInformationMessage('Could not parse OpenAPI document as JSON or YAML');
+        vscode.window.showWarningMessage('Could not parse OpenAPI document as JSON or YAML');
         console.warn(ex.message);
     });
 }
@@ -122,12 +122,12 @@ function bundle() {
 function validate(lint, resolve) {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
-        vscode.window.showInformationMessage('You must have an open editor window to validate an OpenAPI document');
+        vscode.window.showWarningMessage('You must have an open editor window to validate an OpenAPI document');
         return; // No open text editor
     }
 
     if (resolve && editor.document.isUntitled) {
-        vscode.window.showInformationMessage('Document must be saved in order to resolve correctly');
+        vscode.window.showWarningMessage('Document must be saved in order to resolve correctly');
         return; // No open text editor
     }
 
@@ -146,11 +146,11 @@ function validate(lint, resolve) {
             for (let warning of options.warnings||[]) {
                 message += warning.message + ' ' + warning.pointer + ' ' + warning.ruleName + '. \n';
             }
-        	vscode.window.showErrorMessage(message);
+            vscode.window.showErrorMessage(message);
 	    });
     }
     catch (ex) {
-        vscode.window.showErrorMessage('Could not parse OpenAPI document!');
+        vscode.window.showErrorMessage('Could not parse OpenAPI document as JSON or YAML!');
         console.warn(ex.message);
     }
 }
