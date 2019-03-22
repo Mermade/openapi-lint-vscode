@@ -160,9 +160,9 @@
     "@types/mocha": "^2.2.42"
   },
   "dependencies": {
-    "oas-resolver": "^2.0.0",
-    "oas-validator": "^3.0.1",
-    "swagger2openapi": "^5.0.2",
+    "oas-resolver": "^2.2.3",
+    "oas-validator": "^3.2.4",
+    "swagger2openapi": "^5.2.5",
     "yaml": "^1.2.1"
   },
   "directories": {
