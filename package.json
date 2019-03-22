@@ -2,7 +2,7 @@
   "name": "openapi-lint",
   "displayName": "openapi-lint",
   "description": "OpenAPI (Swagger) 2.0/3.0.x intellisense, validator, linter, converter, resolver",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "mermade",
   "engines": {
     "vscode": "^1.24.0"
