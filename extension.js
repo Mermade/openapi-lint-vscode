@@ -137,7 +137,7 @@ function validate(lint, resolve) {
         let obj = yaml.parse(text);
         validator.validate(obj, options)
         .then(function(options){
-            vscode.window.showInformationMessage('Your OpenAPI document is:',lint ? 'excellent!' : 'valid.');
+            vscode.window.showInformationMessage('Your OpenAPI document is:' + (lint ? 'excellent!' : 'valid.'));
         })
 	    .catch(function(ex){
 	    	let message = 'Your OpenAPI document is not '+(options.valid ? 'perfect' : 'valid') + ' :( \n';
