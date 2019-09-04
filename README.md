@@ -1,5 +1,7 @@
 # openapi-lint README
 
+![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/mermade.openapi-lint) ![Visual Studio Marketplace Stars](https://img.shields.io/visual-studio-marketplace/stars/mermade.openapi-lint)
+
 This extension can be used to validate and [lint](https://en.wikipedia.org/wiki/Lint_(software)) OpenAPI 3.0.x documents, and convert between OpenAPI 2.0 and 3.0.0. It provides 11 Visual Studio Code commands:
 
 * OpenAPI Validate - which fully validates your OpenAPI document against the [specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)
