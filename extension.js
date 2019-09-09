@@ -183,9 +183,21 @@ function validate(lint, resolve) {
 }
 */
 
+function cleanArrayPrototype() {
+  for (const e in []) {
+    console.log('Cleaning Array.prototype pollution:',e);
+    Object.defineProperty(Array.prototype, e, {
+      value: Array.prototype[e],
+      enumerable: false
+    });
+  }
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
+
+    cleanArrayPrototype();
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
