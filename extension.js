@@ -137,12 +137,13 @@ function validate(lint, resolve) {
         let obj = yaml.parse(text);
         validator.validate(obj, options)
         .then(function(){
-            vscode.window.showInformationMessage('Your OpenAPI document is:',lint ? 'excellent!' : 'valid.');
+            vscode.window.showInformationMessage('Your OpenAPI document is '+(lint ? 'excellent!' : 'valid.'));
         })
 	    .catch(function(ex){
             const dc = vscode.languages.createDiagnosticCollection('openapi-lint');
+            dc.delete(editor.document.uri);
             const diagnostics = [];
-            let range;
+            let range; // TODO
             diagnostics.push(new vscode.Diagnostic(range, ex.message, vscode.DiagnosticSeverity.Error));
             for (let warning of options.warnings||[]) {
                 diagnostics.push(new vscode.Diagnostic(range, warning.message + ' ' + warning.ruleName, vscode.DiagnosticSeverity.Warning));
