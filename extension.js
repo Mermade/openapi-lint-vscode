@@ -6,6 +6,8 @@ const validator = require('oas-validator');
 const resolver = require('oas-resolver');
 const converter = require('swagger2openapi');
 
+const dc = vscode.languages.createDiagnosticCollection('openapi-lint');
+
 function convert(yamlMode, resolve) {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
@@ -140,7 +142,6 @@ function validate(lint, resolve) {
             vscode.window.showInformationMessage('Your OpenAPI document is '+(lint ? 'excellent!' : 'valid.'));
         })
 	    .catch(function(ex){
-            const dc = vscode.languages.createDiagnosticCollection('openapi-lint');
             dc.delete(editor.document.uri);
             const diagnostics = [];
             let range; // TODO
