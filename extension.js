@@ -140,13 +140,14 @@ function validate(lint, resolve) {
             vscode.window.showInformationMessage('Your OpenAPI document is:',lint ? 'excellent!' : 'valid.');
         })
 	    .catch(function(ex){
-	    	let message = 'Your OpenAPI document is not '+(options.valid ? 'perfect' : 'valid') + ' :( \n';
-	    	if (options.context) message += options.context.pop()+' \n';
-            message += ex.message + '. \n';
+            const dc = vscode.languages.createDiagnosticCollection('openapi-lint');
+            const diagnostics = [];
+            let range;
+            diagnostics.push(new vscode.Diagnostic(range, ex.message, vscode.DiagnosticSeverity.Error));
             for (let warning of options.warnings||[]) {
-                message += warning.message + ' ' + warning.pointer + ' ' + warning.ruleName + '. \n';
+                diagnostics.push(new vscode.Diagnostic(range, warning.message + ' ' + warning.ruleName, vscode.DiagnosticSeverity.Warning));
             }
-            vscode.window.showErrorMessage(message);
+            dc.set(editor.document.uri, diagnostics);
 	    });
     }
     catch (ex) {
