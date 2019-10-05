@@ -55,8 +55,7 @@ No configuration is currently possible or needed.
 
 ## Known Issues
 
-* Messages need better formatting
-* Jump-to-error functionality not implemented yet
+* Jump-to-error functionality not implemented yet (all show as line 1)
 * No way to override/amend linter rules yet
 
 ## Credits
