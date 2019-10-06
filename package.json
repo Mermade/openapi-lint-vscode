@@ -85,11 +85,15 @@
     "yamlValidation": [
       {
         "fileMatch": "*asyncapi.yaml",
-        "url": "./schemas/asyncapi.json"
+        "url": "./schemas/asyncapi-2.0.0.json"
       },
       {
         "fileMatch": "*asyncapi.yml",
-        "url": "./schemas/asyncapi.json"
+        "url": "./schemas/asyncapi-2.0.0.json"
+      },
+      {
+        "fileMatch": "*openapi.yaml",
+        "url": "./schemas/gnostic-3.0.json"
       },
       {
         "fileMatch": "*openapi.yaml",
@@ -127,7 +131,7 @@
     "jsonValidation": [
       {
         "fileMatch": "*asyncapi.json",
-        "url": "./schemas/asyncapi.json"
+        "url": "./schemas/asyncapi-2.0.0.json"
       },
       {
         "fileMatch": "*openapi.json",
