@@ -158,33 +158,34 @@ function validate(lint, resolve) {
     }
 }
 
-/*function optionallyValidateOnSave(document) {
-    return new Promise(function(resolve,reject){
-        let text = document.getText();
-        try {
-            let obj = yaml.parse(text);
-            if (!obj || (!obj.openapi && !obj.swagger)) reject(false);
-            let options = {};
-            try {
-                validator.validateSync(obj, options);
-                resolve(true);
+function optionallyValidateOnSave(document) {
+    let text = document.getText();
+    try {
+        let obj = yaml.parse(text);
+        if (!obj || (!obj.openapi && !obj.swagger)) return false;
+        let options = {};
+        validator.validateSync(obj, options)
+        .then(result => {
+            dc.delete(document.uri);
+            return result;
+        })
+        .catch(ex => {
+            dc.delete(document.uri);
+            const diagnostics = [];
+            let range; // TODO
+            diagnostics.push(new vscode.Diagnostic(range, ex.message, vscode.DiagnosticSeverity.Error));
+            for (let warning of options.warnings||[]) {
+                diagnostics.push(new vscode.Diagnostic(range, warning.message + ' ' + warning.ruleName, vscode.DiagnosticSeverity.Warning));
             }
-            catch (ex) {
-                let message = 'Your OpenAPI document is not valid :(\n';
-                if (options.context) message += options.context.pop()+'\n';
-                message += ex.message;
-                vscode.window.showErrorMessage(message);
-                // TODO maybe have a setting for preventing the save (if possible)?
-                reject(false);
-            }
-        }
-        catch (ex) {
-            // fail to parse is not a problem
-            resolve(true);
-        }
-    });
+            dc.set(document.uri, diagnostics);
+            return false;
+        });
+    }
+    catch (ex) {
+        // fail to parse is not a problem
+        return true;
+    }
 }
-*/
 
 function cleanArrayPrototype() {
   for (const e in []) {
@@ -261,14 +262,12 @@ function activate(context) {
     context.subscriptions.push(cmdTranslateToJson);
     context.subscriptions.push(cmdTranslateToYaml);
 
-    //context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(function(document){
-    //    return optionallyValidateOnSave(document);
-    //}));
-    //console.log('openapi-lint: Installed save handler')
-
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
     console.log('Extension "openapi-lint" activated. '+context.subscriptions.length);
+
+    context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(function(document){
+        return optionallyValidateOnSave(document);
+    }));
+    console.log('openapi-lint: Installed save handler');
 }
 exports.activate = activate;
 
