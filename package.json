@@ -22,7 +22,8 @@
     "onCommand:extension.openapi-convert-yaml",
     "onCommand:extension.openapi-convert-json",
     "onCommand:extension.openapi-convert-yaml-resolved",
-    "onCommand:extension.openapi-convert-json-resolved"
+    "onCommand:extension.openapi-convert-json-resolved",
+    "*"
   ],
   "main": "./extension",
   "contributes": {
