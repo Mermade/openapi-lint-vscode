@@ -268,6 +268,8 @@ function activate(context) {
         return optionallyValidateOnSave(document);
     }));
     console.log('openapi-lint: Installed save handler');
+    // you can return an API from your extension for use by other extensions
+    // or tests etc
 }
 exports.activate = activate;
 
