@@ -145,9 +145,14 @@ function validate(lint, resolve) {
             dc.delete(editor.document.uri);
             const diagnostics = [];
             let range; // TODO
-            diagnostics.push(new vscode.Diagnostic(range, ex.message, vscode.DiagnosticSeverity.Error));
+            let error = new vscode.Diagnostic(range, ex.message, vscode.DiagnosticSeverity.Error);
+            error.source = 'openapi-lint';
+            diagnostics.push(error);
             for (let warning of options.warnings||[]) {
-                diagnostics.push(new vscode.Diagnostic(range, warning.message + ' ' + warning.ruleName, vscode.DiagnosticSeverity.Warning));
+                let warn = new vscode.Diagnostic(range, warning.message, vscode.DiagnosticSeverity.Warning);
+                warn.source = 'openapi-lint';
+                warn.code = warning.ruleName
+                diagnostics.push(warn);
             }
             dc.set(editor.document.uri, diagnostics);
 	    });
