@@ -32,7 +32,8 @@ The default linter rules are documented [here](https://mermade.github.io/oas-kit
 * OAS v2 intellisense for files named `*swagger.json`, `*swagger.yaml`, `*swagger.yml`, `*oas2.json`, `*oas2.yaml`, `*oas2.yml`
 * Conversion between JSON and YAML
 * Snippets (minimal valid openapi/swagger JSON and YAML documents)
-* AsyncAPI v2.0.0 intellisense for files named `*asyncapi.json`, `*asyncapi.yaml`, `*asyncapi.yml`
+* AsyncAPI v2.0.x intellisense for files named `*asyncapi.json`, `*asyncapi.yaml`, `*asyncapi.yml`
+* AsyncAPI v1.2.x intellisense for files named `*asyncapi1.json`, `*asyncapi1.yaml`, `*asyncapi1.yml`
 
 ## Coming soon
 

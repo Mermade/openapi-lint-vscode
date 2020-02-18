@@ -2,7 +2,7 @@
   "name": "openapi-lint",
   "displayName": "openapi-lint",
   "description": "OpenAPI (Swagger) 2.0/3.0.x intellisense, validator, linter, converter, resolver",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "mermade",
   "engines": {
     "vscode": "^1.24.0"
@@ -85,32 +85,36 @@
     ],
     "yamlValidation": [
       {
+        "fileMatch": "*asyncapi1.yaml",
+        "url": "./schemas/asyncapi-1.2.json"
+      },
+      {
+        "fileMatch": "*asyncapi1.yml",
+        "url": "./schemas/asyncapi-1.2.json"
+      },
+      {
         "fileMatch": "*asyncapi.yaml",
-        "url": "./schemas/asyncapi-2.0.0.json"
+        "url": "./schemas/asyncapi-2.0.json"
       },
       {
         "fileMatch": "*asyncapi.yml",
-        "url": "./schemas/asyncapi-2.0.0.json"
+        "url": "./schemas/asyncapi-2.0.json"
       },
       {
         "fileMatch": "*openapi.yaml",
-        "url": "./schemas/gnostic-3.0.json"
-      },
-      {
-        "fileMatch": "*openapi.yaml",
-        "url": "./schemas/gnostic-3.0.json"
+        "url": "./schemas/openapi-3.0.json"
       },
       {
         "fileMatch": "*openapi.yml",
-        "url": "./schemas/gnostic-3.0.json"
+        "url": "./schemas/openapi-3.0.json"
       },
       {
         "fileMatch": "*oas3.yaml",
-        "url": "./schemas/gnostic-3.0.json"
+        "url": "./schemas/openapi-3.0.json"
       },
       {
         "fileMatch": "*oas3.yml",
-        "url": "./schemas/gnostic-3.0.json"
+        "url": "./schemas/openapi-3.0.json"
       },
       {
         "fileMatch": "*swagger.yaml",
@@ -131,16 +135,20 @@
     ],
     "jsonValidation": [
       {
+        "fileMatch": "*asyncapi1.json",
+        "url": "./schemas/asyncapi-1.2.json"
+      },
+      {
         "fileMatch": "*asyncapi.json",
-        "url": "./schemas/asyncapi-2.0.0.json"
+        "url": "./schemas/asyncapi-2.0.json"
       },
       {
         "fileMatch": "*openapi.json",
-        "url": "./schemas/gnostic-3.0.json"
+        "url": "./schemas/openapi-3.0.json"
       },
       {
         "fileMatch": "*oas3.json",
-        "url": "./schemas/gnostic-3.0.json"
+        "url": "./schemas/openapi-3.0.json"
       },
       {
         "fileMatch": "*swagger.json",
@@ -165,10 +173,10 @@
     "@types/mocha": "^2.2.42"
   },
   "dependencies": {
-    "oas-resolver": "^2.2.4",
-    "oas-validator": "^3.3.0",
-    "swagger2openapi": "^5.3.0",
-    "yaml": "^1.7.0"
+    "oas-resolver": "^2.2.7",
+    "oas-validator": "^3.3.3",
+    "swagger2openapi": "^5.3.3",
+    "yaml": "^1.7.2"
   },
   "directories": {
     "test": "test"
