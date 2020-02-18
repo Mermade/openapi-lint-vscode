@@ -3,6 +3,10 @@ All notable changes to the "openapi-lint" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [2.0.0]
+- Add AsyncAPI v2.0.0 support.
+- Remove AsyncAPI v1.x.x support.
+
 ## [1.1.0]
 - Integrate errors/warnings with the 'Problems' (diagnostics) pane
 - Accurate line/column positions will be coming in the next minor version
