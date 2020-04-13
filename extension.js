@@ -151,7 +151,12 @@ function validate(lint, resolve) {
             for (let warning of options.warnings||[]) {
                 let warn = new vscode.Diagnostic(range, warning.message, vscode.DiagnosticSeverity.Warning);
                 warn.source = 'openapi-lint';
-                warn.code = warning.ruleName
+                if (warning.rule.url) {
+                    warn.code = { value: warning.ruleName, target: vscode.Uri.parse(warning.rule.url+'#'+warning.ruleName) };
+                }
+                else {
+                    warn.code = warning.ruleName;
+                }
                 diagnostics.push(warn);
             }
             dc.set(editor.document.uri, diagnostics);
