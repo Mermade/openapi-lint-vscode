@@ -180,6 +180,7 @@
   "icon": "images/icon.png",
   "scripts": {
     "old-postinstall": "node ./node_modules/vscode/bin/install",
+    "lint": "npx eslint *.js",
     "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
