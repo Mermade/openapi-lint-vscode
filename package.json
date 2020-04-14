@@ -158,11 +158,28 @@
         "fileMatch": "*oas2.json",
         "url": "./schemas/openapi-2.0.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "OpenAPI-Lint",
+      "properties": {
+        "openapi-lint.onSaveAction": {
+          "type": "string",
+          "description": "Action to take on saving recognised files.",
+          "default": "validate",
+          "enum": [
+            "none",
+            "validate",
+            "resolveAndValidate",
+            "lint",
+            "resolveAndLint"
+          ]
+        }
+      }
+    }
   },
   "icon": "images/icon.png",
   "scripts": {
-    "xostinstall": "node ./node_modules/vscode/bin/install",
+    "old-postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {

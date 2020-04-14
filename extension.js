@@ -169,12 +169,21 @@ function validate(lint, resolve) {
 }
 
 function optionallyValidateOnSave(document) {
+    const onSaveAction = vscode.workspace.getConfiguration('openapi-lint').get('onSaveAction');
+
+    if (onSaveAction === 'none') return true;
     let text = document.getText();
     try {
         let obj = yaml.parse(text);
         if (!obj || (!obj.openapi && !obj.swagger)) return false;
         let options = {};
-        validator.validateSync(obj, options)
+        if ((onSaveAction === 'resolveAndValidate') || (onSaveAction === 'resolveAndLint')) {
+          options.resolve = true;
+        }
+        if ((onSaveAction === 'lint') || (onSaveAction === 'resolveAndLint')) {
+          options.lint = true;
+        }
+        validator.validate(obj, options)
         .then(result => {
             dc.delete(document.uri);
             return result;
@@ -185,7 +194,15 @@ function optionallyValidateOnSave(document) {
             let range; // TODO
             diagnostics.push(new vscode.Diagnostic(range, ex.message, vscode.DiagnosticSeverity.Error));
             for (let warning of options.warnings||[]) {
-                diagnostics.push(new vscode.Diagnostic(range, warning.message + ' ' + warning.ruleName, vscode.DiagnosticSeverity.Warning));
+                let warn = new vscode.Diagnostic(range, warning.message, vscode.DiagnosticSeverity.Warning);
+                warn.source = 'openapi-lint';
+                if (warning.rule.url) {
+                    warn.code = { value: warning.ruleName, target: vscode.Uri.parse(warning.rule.url+'#'+warning.ruleName) };
+                }
+                else {
+                    warn.code = warning.ruleName;
+                }
+                diagnostics.push(warn);
             }
             dc.set(document.uri, diagnostics);
             return false;

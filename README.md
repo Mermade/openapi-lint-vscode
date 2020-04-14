@@ -52,7 +52,7 @@ The extension should work as-is
 
 ## Extension Settings
 
-No configuration is currently possible or needed.
+The `onSaveAction` can be set to one of `none`, `validate` (the default), `resolveAndValidate`, `lint` or `resolveAndLint`.
 
 ## Known Issues
 

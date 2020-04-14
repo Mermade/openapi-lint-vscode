@@ -3,13 +3,17 @@ All notable changes to the "openapi-lint" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.3.0]
+- Add configurable `onSaveAction` setting
+- Update `oas-kit` to latest versions
+
 ## [1.2.0]
 - Add AsyncAPI v2.0.x support
-- Lint-on-save functionality
+- Validate-on-save functionality
 
 ## [1.1.0]
 - Integrate errors/warnings with the 'Problems' (diagnostics) pane
-- Accurate line/column positions will be coming in version 1.3 or 2.0
+- Accurate line/column positions will be coming in version 1.4 or 2.0
 
 ## [1.0.0]
 - Update `oas-kit` to latest versions
