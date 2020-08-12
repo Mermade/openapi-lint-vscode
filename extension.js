@@ -94,7 +94,7 @@ function bundle() {
             return;
         }
     }
-    resolver.resolve(obj, editor.document.fileName, {})
+    resolver.resolve(obj, editor.document.fileName, { fatal: true })
     .then(function(options){
         if (yamlMode) {
             vscode.workspace.openTextDocument({ language: 'yaml', content: yaml.stringify(options.openapi) })
