@@ -165,7 +165,7 @@
         "openapi-lint.onSaveAction": {
           "type": "string",
           "description": "Action to take on saving recognised files.",
-          "default": "validate",
+          "default": "resolveAndValidate",
           "enum": [
             "none",
             "validate",
