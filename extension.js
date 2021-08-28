@@ -144,7 +144,9 @@ function validate(lint, resolve) {
 	    .catch(function(ex){
             dc.delete(editor.document.uri);
             const diagnostics = [];
-            let range; // TODO
+            let p1 = new vscode.Position(0,0);
+            let p2 = new vscode.Position(0,0);
+            let range = new vscode.Range(p1,p2); // TODO
             let error = new vscode.Diagnostic(range, ex.message, vscode.DiagnosticSeverity.Error);
             error.source = 'openapi-lint';
             diagnostics.push(error);
@@ -191,7 +193,9 @@ function optionallyValidateOnSave(document) {
         .catch(ex => {
             dc.delete(document.uri);
             const diagnostics = [];
-            let range; // TODO
+            let p1 = new vscode.Position(0,0);
+            let p2 = new vscode.Position(0,0);
+            let range = new vscode.Range(p1,p2); // TODO
             diagnostics.push(new vscode.Diagnostic(range, ex.message, vscode.DiagnosticSeverity.Error));
             for (let warning of options.warnings||[]) {
                 let warn = new vscode.Diagnostic(range, warning.message, vscode.DiagnosticSeverity.Warning);
